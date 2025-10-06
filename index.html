@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Romulus Ramses Pangihutan, S.T. — Portfolio</title>
+  <meta name="description" content="Portfolio of Romulus Ramses Pangihutan — Data Analyst, IMS Core, RF & Cloud Engineer." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (icons) -->
+  <script src="https://kit.fontawesome.com/a2e0e6ad60.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root{
+      --accent: #f57c00;        /* orange elegan */
+      --accent-600: #e65100;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --muted: #6b7280;
+      --text: #111827;
+      --shadow: rgba(15, 23, 42, 0.08);
+    }
+
+    /* Dark theme variables (will be applied when .dark on html) */
+    html.dark {
+      --bg: #0b1220;
+      --surface: #0f1724;
+      --muted: #9aa4b2;
+      --text: #e6eef8;
+      --shadow: rgba(2,6,23,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html{ background:var(--bg); scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      position:fixed;
+      left:0; top:0; bottom:0;
+      width:280px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-600));
+      color: #fff;
+      padding:28px 18px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      box-shadow: 4px 0 18px var(--shadow);
+    }
+
+    .profile-pic{
+      width:140px; height:140px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid rgba(255,255,255,0.95);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .name{
+      margin-top:8px;
+      font-weight:700;
+      text-align:center;
+      font-size:1.15rem;
+      line-height:1.1;
+    }
+
+    .role{
+      font-size:0.85rem;
+      text-align:center;
+      opacity:0.95;
+    }
+
+    nav.sidebar-nav{
+      margin-top:14px;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:center;
+    }
+
+    nav.sidebar-nav a{
+      width:100%;
+      text-decoration:none;
+      color:rgba(255,255,255,0.98);
+      background: transparent;
+      padding:9px 12px;
+      border-radius:8px;
+      text-align:center;
+      font-weight:600;
+      transition: background .18s, transform .12s;
+    }
+
+    nav.sidebar-nav a:hover{
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .sidebar-bottom{
+      margin-top:auto;
+      width:100%;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+    }
+
+    .socials{ display:flex; gap:10px; align-items:center; }
+    .socials a{ color: #fff; font-size:1.1rem; text-decoration:none; opacity:0.95; transition: opacity .15s, transform .12s; }
+    .socials a:hover{ opacity:1; transform: translateY(-3px); }
+
+    .download-btn{
+      display:inline-block;
+      margin-top:8px;
+      background: #fff;
+      color: var(--accent);
+      font-weight:700;
+      padding:9px 18px;
+      border-radius:24px;
+      text-decoration:none;
+      border: 2px solid rgba(255,255,255,0.12);
+      transition: transform .12s, background .12s, color .12s;
+    }
+    .download-btn:hover{
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.92);
+    }
+
+    /* Dark toggle */
+    .theme-toggle{
+      cursor:pointer;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border:none;
+      padding:8px 10px;
+      border-radius:10px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+
+    /* CONTENT */
+    .content{
+      margin-left:280px;
+      padding:40px 48px;
+      width: calc(100% - 280px);
+      min-height:100vh;
+      overflow:auto;
+    }
+
+    .section{
+      background: var(--surface);
+      padding:28px;
+      border-radius:14px;
+      box-shadow: 0 8px 20px var(--shadow);
+      margin-bottom:28px;
+      opacity:0;
+      transform: translateY(18px);
+      animation: fadeUp .9s ease forwards;
+    }
+    .section:nth-of-type(1){ animation-delay:0.16s; }
+    .section:nth-of-type(2){ animation-delay:0.32s; }
+    .section:nth-of-type(3){ animation-delay:0.48s; }
+    .section:nth-of-type(4){ animation-delay:0.64s; }
+
+    h1.page-title{ margin:0; font-size:1.6rem; }
+    p.lead{ color:var(--muted); margin-top:10px; }
+
+    h2{ color: var(--accent); margin:0 0 12px 0; display:inline-block; border-bottom:2px solid var(--accent); padding-bottom:6px; }
+    ul.simple{ padding-left: 1rem; margin: 8px 0; color:var(--muted); }
+    ul.simple li{ margin:8px 0; }
+
+    /* PROJECT card */
+    .project{
+      background: linear-gradient(180deg, rgba(245,247,250,0.8), rgba(245,247,250,0.6));
+      border-left: 4px solid var(--accent);
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:12px;
+      transition: transform .18s, box-shadow .18s;
+    }
+    .project:hover{ transform: translateY(-4px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
+
+    footer.page-footer{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* small screens */
+    @media (max-width:900px){
+      .sidebar{ position:relative; width:100%; height:auto; padding:18px; flex-direction:row; gap:16px; align-items:center; }
+      .profile-pic{ width:64px; height:64px; border-width:3px; }
+      .name{ font-size:1rem; }
+      .role{ display:none; }
+      nav.sidebar-nav{ display:flex; flex-direction:row; gap:8px; margin-left:auto; }
+      .content{ margin-left:0; padding:18px; width:100%; }
+      .section{ padding:18px; border-radius:10px; }
+      .download-btn{ padding:8px 12px; font-size:0.95rem; }
+    }
+
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(18px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Sidebar navigation">
+    <!-- profile.jpg should be uploaded to repo root -->
+    <img src="profile.jpg" alt="Romulus Ramses Pangihutan" class="profile-pic" />
+    <div class="name">Romulus Ramses<br><strong>Pangihutan</strong></div>
+    <div class="role">Data Analyst • IMS Core • RF • Cloud</div>
+
+    <nav class="sidebar-nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="sidebar-bottom" style="width:100%;">
+      <div class="socials" aria-hidden="false">
+        <a href="https://www.linkedin.com/in/romulusramses/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/ramsesdbu" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:ramses.elits@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+
+      <!-- Theme toggle -->
+      <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark mode" style="margin-top:10px;">
+        <i id="themeIcon" class="fas fa-moon"></i>&nbsp;<span id="themeLabel">Auto</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="content" id="top">
+    <section id="about" class="section">
+      <h1 class="page-title">About</h1>
+<p style="text-align: justify;"> I am a results-oriented technical professional with a strong background in telecommunications, IT infrastructure, and data analysis. My experience spans across IMS Core, RF optimization, system deployment, operations, and technical support. Over the years, I have managed end-to-end infrastructure projects — from requirement gathering, design, deployment, and performance optimization to ongoing maintenance and reporting.
+</p>
+<p style="text-align: justify;"> I’m passionate about integrating technology and analytics to improve system reliability and business performance. With hands-on expertise in servers, storage, networking, and backup solutions, I enjoy solving complex technical problems and ensuring high service availability.
+</p>
+<p style="text-align: justify;"> I am continuously developing my skills in cloud technologies, network security, and project management to meet evolving global standards. My goal is to contribute to innovative teams that value technical excellence, operational efficiency, and continuous improvement.
+
+</p>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Experience</h2>
+      <p><strong>RF Optimization Engineer</strong> — network KPI analysis, drive test analysis, cluster & parameter tuning to improve user experience.</p>
+      <p><strong>IMS Core Engineer</strong> — deployment, operation, and support for VoLTE/IMS nodes across multi-vendor environments.</p>
+      <p><strong>Cloud & Data</strong> — automation of ETL tasks, AWS monitoring & CloudWatch setup, data pipelines for daily reporting.</p>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <ul class="simple">
+        <li>Python, SQL, Power BI / Tableau, Excel</li>
+        <li>IMS Core / EPC / VoLTE, RF Optimization</li>
+        <li>AWS, GCP, Docker, Kubernetes, Terraform (basic)</li>
+        <li>Automation, Monitoring, Incident Management</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+
+      <div class="project">
+        <h3>Network Performance Dashboard</h3>
+        <p>Power BI & Python-based dashboard to monitor RF KPIs and spot regressions early. Automated daily data refresh and alerts.</p>
+      </div>
+
+      <div class="project">
+        <h3>IMS Core Deployment Automation</h3>
+        <p>Scripting and CI steps to automate routine IMS configuration and cut down rollout time across environments.</p>
+      </div>
+
+      <div class="project">
+        <h3>Data Pipeline on AWS</h3>
+        <p>ETL pipelines using Lambda & S3 to transform and load analytics-ready datasets for daily reporting.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:ramses.elits@gmail.com">ramses.elits@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/romulusramses/" target="_blank">romulusramses</a></p>
+      <p>GitHub: <a href="https://github.com/ramsesdbu" target="_blank">ramsesdbu</a></p>
+    </section>
+
+    <footer class="page-footer">© 2025 Romulus Ramses Pangihutan — Built with care • Hosted on GitHub Pages</footer>
+  </main>
+
+  <script>
+    // THEME: Auto (by hour) + manual toggle saved to localStorage
+    (function(){
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeLabel = document.getElementById('themeLabel');
+
+      const THEME_KEY = 'ramses_theme_pref'; // 'auto' | 'dark' | 'light'
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          themeIcon.className = 'fas fa-moon';
+          toggleBtn.setAttribute('aria-pressed','true');
+          themeLabel.textContent = 'Dark';
+        } else {
+          root.classList.remove('dark');
+          themeIcon.className = 'fas fa-sun';
+          toggleBtn.setAttribute('aria-pressed','false');
+          themeLabel.textContent = 'Light';
+        }
+      }
+
+      function autoThemeByTime(){
+        const d = new Date();
+        const h = d.getHours();
+        // consider night between 18:00 - 05:59
+        if (h >= 18 || h < 6) return 'dark';
+        return 'light';
+      }
+
+      // init
+      const stored = localStorage.getItem(THEME_KEY);
+      if (!stored || stored === 'auto') {
+        const auto = autoThemeByTime();
+        applyTheme(auto);
+        localStorage.setItem(THEME_KEY, 'auto');
+        themeLabel.textContent = 'Auto';
+      } else {
+        applyTheme(stored);
+      }
+
+      // Toggle logic: cycles Auto -> Dark -> Light -> Auto
+      toggleBtn.addEventListener('click', () => {
+        const cur = localStorage.getItem(THEME_KEY) || 'auto';
+        let next;
+        if (cur === 'auto') next = 'dark';
+        else if (cur === 'dark') next = 'light';
+        else next = 'auto';
+
+        if (next === 'auto') {
+          const auto = autoThemeByTime();
+          applyTheme(auto);
+          themeLabel.textContent = 'Auto';
+        } else {
+          applyTheme(next);
+        }
+        localStorage.setItem(THEME_KEY, next);
+      });
+
+      // If stored 'auto', keep showing auto label but ensure theme updates on hour change:
+      setInterval(() => {
+        const cur = localStorage.getItem(THEME_KEY) || 'auto';
+        if (cur === 'auto') {
+          const auto = autoThemeByTime();
+          applyTheme(auto);
+        }
+      }, 60_000); // check every minute
+    })();
+
+    // Smooth highlight current section in sidebar (optional small enhancement)
+    (function(){
+      const links = document.querySelectorAll('nav.sidebar-nav a');
+      const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
+      function onScroll(){
+        const y = window.scrollY + 120; // offset
+        let idx = sections.length -1;
+        for (let i=0;i<sections.length;i++){
+          if (y < sections[i].offsetTop) { idx = i-1; break; }
+        }
+        links.forEach((lnk,i) => lnk.style.opacity = (i===idx ? '1' : '0.9'));
+      }
+      document.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
